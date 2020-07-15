@@ -10,7 +10,7 @@ int precedence(char temp){
     return -1;
 }
 
-bool is_char(char temp){return (temp>='a' && temp<='z') || (temp>='A' && temp<='Z');}
+bool is_char(char temp){return (temp>='a' && temp<='z');}
 
 bool is_operator(char temp){return (temp =='%' || temp =='*' || temp =='+' || temp =='-' || temp =='/');}
 
@@ -46,6 +46,7 @@ string infix_to_postfix(string exp){
     }
     return ans;
 }
+
 
 string infix_to_prefix(string infix) { 
 
@@ -91,6 +92,34 @@ string prefix_to_infix(string exp){
     return st.top();
 }
 
+
+string postfix_to_infix(string exp){
+
+    stack<string> st;
+    int len = exp.length();
+
+    string char_string;
+    for(int i=0;i<len;i++){
+        if(is_operator(exp[i])){
+
+            string string1 = st.top(); st.pop();
+            string string2 = st.top(); st.pop();
+
+            string temp_string = "";
+            temp_string += string2;
+            temp_string += exp[i];
+            temp_string += string1;
+            
+            st.push(temp_string);
+        }
+        else{
+            char_string = "";
+            char_string+=exp[i];
+            st.push(char_string);
+        }
+    }
+    return st.top();
+}
 
 string prefix_to_postfix(string exp){
 
@@ -149,34 +178,6 @@ string postfix_to_prefix(string exp){
     return st.top();
 }
 
-string postfix_to_infix(string exp){
-
-    stack<string> st;
-    int len = exp.length();
-
-    string char_string;
-    for(int i=0;i<len;i++){
-        if(is_operator(exp[i])){
-
-            string string1 = st.top(); st.pop();
-            string string2 = st.top(); st.pop();
-
-            string temp_string = "";
-            temp_string += string2;
-            temp_string += exp[i];
-            temp_string += string1;
-            
-            st.push(temp_string);
-        }
-        else{
-            char_string = "";
-            char_string+=exp[i];
-            st.push(char_string);
-        }
-    }
-    return st.top();
-}
-
 
 int main(){
 
@@ -204,5 +205,7 @@ int main(){
     cout<<postfix_to_infix(exp);
     cout<<"\n";
 
+    
+    
     return 0;
 }
