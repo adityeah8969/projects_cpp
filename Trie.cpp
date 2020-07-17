@@ -24,6 +24,7 @@ void insert(node* pcrawl,string str){
         pcrawl=pcrawl->children[index];
     }
     pcrawl->end_of_world=true;
+    return;
 }
 
 bool search(node* pcrawl,string str){
