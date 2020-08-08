@@ -9,7 +9,7 @@ class point{
         double y;
 };
 
-point[] p = {{2, 3}, {12, 30}, {40, 50}, {5, 1}, {12, 10}, {3, 4}};
+point p[] = {{2, 3}, {12, 30}, {40, 50}, {5, 1}, {12, 10}, {3, 4}};
 
 bool cmp_x(point a, point b){
     return a.x < b.x;
@@ -31,16 +31,18 @@ double brute_force(int low, int high){
     double mini = INT64_MAX;
 
     for(int i=low;i<=high;i++){
-        for(int j=low+1;j<=high;j++){
+        for(int j=i+1;j<=high;j++){
             mini = min(mini, dist(p[i], p[j])); 
         }
     }
+
+    return mini;
 }
 
-double closest_pair_of_points_on_strip(vector<double> strip, double d){
+double closest_pair_of_points_on_strip(vector<point> strip, double d){
 
     sort(strip.begin(), strip.end(), cmp_y);
-    int len = strip.length();
+    int len = strip.size();
     double mini = d;
 
     for(int i=0;i<len;i++){
@@ -63,7 +65,7 @@ double closest_pair_of_points(int low, int high){
     double dr = closest_pair_of_points(mid+1, high);
     double d = min(dl, dr);
 
-    vector<double> strip;7
+    vector<point> strip;
     for(int i=low;i<=high;i++){
         if(abs(mid_point.x - p[i].x)<d){
             strip.push_back(p[i]);

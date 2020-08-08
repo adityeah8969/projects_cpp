@@ -4,13 +4,40 @@ using namespace std;
 #define ll long long int
 #define M 200005
 
-int lps[M]; // this array denotes the longest suffix of the substring pattern (0,i) which is also a prefix.
+int lps[M]; // this array denotes the LENGTH of proper(can't include first element) longest suffix of the substring
+            // which is also a proper prefix(can't include last element).
+
+            // e.g 
+            
+            // a a a a a 
+            // 0 1 2 3 4 
+
+            // a b c d e a b c d 
+            // 0 0 0 0 0 1 2 3 4 
 
 // For every mismatch between pattern and text we dont need to start over again. If there is a mismatch between 
 // text[i] & pattern[j] then we need to fix i and left shift j = lps[j-1]. This is done because 
 // pattern[0, 'lps[j-1]'] initial substring will anyways match text[i - lps[j-1], i-1] substring.
 
 // same concept is getting used while preprocessing lps array.
+
+
+// IMPORTANT NOTE:
+// let j be the pointer for pattern traversal
+// j = lps[j-1] not only allows us to skip the prefix which would have anyways got matched but also makes the pointer (j)
+// point to the index one more than the last index of matched prefix.
+
+// i.e
+
+// 0 1 2 3 4 5 6 7 8
+// a b c d e a b c d 
+// 0 0 0 0 0 1 2 3 4 
+
+// if mismatch happens at second b (index 6) then lps[6-1] or lps[5] (value lps[5] = 1) not only allows us to skip
+// 1 character from the beginning but also makes j(pointer for pattern traversal) point to 1 that is next character
+// after the prefix match is over (in this example 'b' with index 1). So from this point onwards comparison starts
+// from index (j = 1).
+
 
 void KMP_search(string text,string pattern){ 
 
@@ -29,7 +56,8 @@ void KMP_search(string text,string pattern){
 
         if(j==m){
             cout<<"pattern found at position: "<<i-m<<"\n";
-            j = lps[j-1];
+            j = lps[j-1];                                       // here j-1 == m-1 i.e last index of the pattern
+            continue;
         }
 
         if(i<n && pattern[j]!=text[i]){
@@ -43,7 +71,7 @@ void KMP_search(string text,string pattern){
 void compute_lps_array(string pattern){
 
     int n = pattern.length();
-    lps[0] = 0;
+    lps[0] = 0;                     // 0 in RHS is the index
     int len = 0;
     int i=1;
 

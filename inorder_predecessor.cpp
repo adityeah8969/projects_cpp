@@ -12,8 +12,9 @@ void init(){
 }
 
 bool is_leftmost(int i){
-    int r=0;
-    while(tree[r]!=-1 && tree[2*r+1]!=-1){r=2*r+1;}
+    int r=0;                                        // * start from root
+    while(tree[r]!=-1){r = 2*r+1;}
+    r=(r-1)/2;
     return r==i;
 }
 
@@ -23,8 +24,9 @@ int nearest_parent_with_right_child(int i, int p){
 }
 
 int rightmost_child(int i){
-    while(tree[i]!=-1 && tree[2*i+2]!=-1){i = 2*i+2;}
-    return i;
+    while(tree[r]!=-1){r = 2*r+2;}
+    r=(r-1)/2;
+    return r;
 }
 
 int inorder_predecessor(int i){

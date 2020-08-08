@@ -13,9 +13,10 @@ edge* Edges=NULL;
 int V,E;
 int dist[100];
 
-
+// shortest path from src to all the vertices inside a graph with no negative cycle.
+// Edge Bucket
 void BellmanFord(){
-
+    // shortest path cannot have more than V-1 edges.
     for(int i=1;i<=V-1;i++){
         for(int j=0;j<E;j++){
             int u=Edges[j].src;

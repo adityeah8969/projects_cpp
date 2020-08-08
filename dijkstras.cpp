@@ -15,17 +15,18 @@ void addEdge(int u,int v,int w){
 
 void dijkstras(int src){
 
-    pq.push(make_pair(0,src));
+    pq.push({dist[src],src});
 
     while(!pq.empty()){
-        int u=pq.top().second;
+        int u = pq.top().second;
         pq.pop();
-        for(auto it=Adj[u].begin();it!=Adj[u].end();it++){
-            int v=(*it).first;
-            int weight=(*it).second;
-            if(dist[v] > dist[u] + weight){
-                dist[v]=dist[u]+weight;
-                pq.push(make_pair(dist[v],v));
+        int v, w;
+        for(auto it = Adj[u].begin();it!=Adj[u].end();it++){
+            v = it->second;
+            w = it->first;
+            if(dist[v] > dist[u] + w){
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
             }
         }
     }

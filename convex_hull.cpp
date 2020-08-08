@@ -5,6 +5,7 @@ using namespace std;
 
 // Reference
 // https://cp-algorithms.com/geometry/grahams-scan-convex-hull.html#:~:text=The%20algorithm%20used%20here%20is,comparison%2C%20addition%20and%20multiplication%20operations.
+// Time complexity : O(nlog(n))
 
 class point{
     public:
@@ -64,7 +65,7 @@ void graham_scan_convex_hull(vector<point> vec){
     int d_len = down.size();
 
     for(int i=0;i<u_len;i++){cout<<up[i].x<<", "<<up[i].y<<"\n";}
-    for(int i=d_len-2;i>0;i--){cout<<down[i].x<<", "<<down[i].y<<"\n";}
+    for(int i=d_len-2;i>0;i--){cout<<down[i].x<<", "<<down[i].y<<"\n";}  // * skipping both p1 & p2
 
     return;
 }

@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-
 #define V 4 
 int dist[100][100];
 

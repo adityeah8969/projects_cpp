@@ -14,7 +14,7 @@ int matrix_multiplication(int arr[], int n){
     }
 
     for(int l=2;l<n;l++){
-        for(int i=0;i<n;i++){
+        for(int i=0;i+l<n;i++){
             int j = i+l;
             int c = INT_MAX;
             for(int k=i+1;k<j;k++){

@@ -12,8 +12,9 @@ void init(){
 }
 
 bool right_most(int i){
-    int r = 0;
-    while(tree[r]!=-1 && tree[2*r+2]!=-1){r=2*r+2;}
+    int r = 0;                      // * start from root
+    while(tree[r]!=-1){r=2*r+2;}
+    r = (r-1)/2;
     return r==i;
 }
 
@@ -23,7 +24,8 @@ int nearest_parent_with_left_node(int i, int p){
 }   
 
 int left_most(int r){
-    while(tree[r]!=-1 && tree[2*r+1]!=-1){r = 2*r+1;}
+    while(tree[r]!=-1){r = 2*r+1;}
+    r = (r-1)/2;
     return r;
 }
 

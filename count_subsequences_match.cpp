@@ -19,12 +19,12 @@ int count_subsequences_match(string text, string pattern){
         }
     }
 
-    for(int i=0;i<=n;i++){dp[i][0]=1;}
+    for(int i=0;i<=n;i++){dp[i][0]=1;}          // * dont forget dp[0][0] = 1
 
     for(int i=1;i<=n;i++){
         for(int j=1;j<=m;j++){
-            dp[i][j]+=dp[i-1][j];               // excluding patern's last character 
-            if(text[i] == pattern[j]){          // including pattern's last character
+            dp[i][j]+=dp[i-1][j];               // excluding text's last character 
+            if(text[i] == pattern[j]){          // including text's last character
                 dp[i][j] += dp[i-1][j-1];       // Note:  pattern's last character can be included only if it 
             }                                   // matches with text's last character
         }

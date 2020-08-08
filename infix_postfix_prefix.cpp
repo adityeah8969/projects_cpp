@@ -14,6 +14,7 @@ bool is_char(char temp){return (temp>='a' && temp<='z');}
 
 bool is_operator(char temp){return (temp =='%' || temp =='*' || temp =='+' || temp =='-' || temp =='/');}
 
+// inside stack precedence order of the operators should be in increasing order from bottom to top
 string infix_to_postfix(string exp){
 
     int len = exp.length();
@@ -30,7 +31,7 @@ string infix_to_postfix(string exp){
                 st.pop();
             }
             if(!st.empty() && st.top()=='('){st.pop();}
-            continue;
+            continue;                                   // * continue
         }
 
         while(!st.empty() && precedence(st.top()) >= precedence(exp[i])){
@@ -47,15 +48,17 @@ string infix_to_postfix(string exp){
     return ans;
 }
 
-
+// reverse the infix expression (taking care of '(' & ')')
+// get the postfix expression corresponding to the reversed infix
+// reverse the postfix expression obtained and return the same
 string infix_to_prefix(string infix) { 
 
     int len = infix.size(); 
     reverse(infix.begin(), infix.end()); 
 
     for (int i = 0; i < len; i++) { 
-        if (infix[i] == '(') { infix[i] = ')';continue;}
-        if (infix[i] == ')') { infix[i] = '(';continue;}
+        if (infix[i] == '(') { infix[i] = ')';continue;}       // * continue
+        if (infix[i] == ')') { infix[i] = '(';continue;}       // * continue
     } 
   
     string prefix = infix_to_postfix(infix); 
@@ -70,14 +73,14 @@ string prefix_to_infix(string exp){
     int len = exp.length();
 
     string char_string;
-    for(int i=len-1;i>=0;i--){
+    for(int i=len-1;i>=0;i--){                  // prefix : len-1 -> 0 
         if(is_operator(exp[i])){
 
             string string1 = st.top(); st.pop();
             string string2 = st.top(); st.pop();
 
             string temp_string = "";
-            temp_string += string1;
+            temp_string += string1;             // str1 (exp) str2
             temp_string += exp[i];
             temp_string += string2;
 
@@ -99,14 +102,14 @@ string postfix_to_infix(string exp){
     int len = exp.length();
 
     string char_string;
-    for(int i=0;i<len;i++){
+    for(int i=0;i<len;i++){                     // postfix : 0 -> len-1 
         if(is_operator(exp[i])){
 
             string string1 = st.top(); st.pop();
             string string2 = st.top(); st.pop();
 
             string temp_string = "";
-            temp_string += string2;
+            temp_string += string2;             // str2 (exp) str1
             temp_string += exp[i];
             temp_string += string1;
             
@@ -127,13 +130,13 @@ string prefix_to_postfix(string exp){
     int len = exp.length();
 
     string char_string;
-    for(int i=len-1;i>=0;i--){
+    for(int i=len-1;i>=0;i--){                  // prefix : len-1 -> 0 
         if(is_operator(exp[i])){
 
             string string1 = st.top(); st.pop();
             string string2 = st.top(); st.pop();
 
-            string temp_string = "";
+            string temp_string = "";            // str1  str2 (exp)
             temp_string += string1;
             temp_string += string2;
             temp_string += exp[i];
@@ -156,14 +159,14 @@ string postfix_to_prefix(string exp){
     int len = exp.length();
 
     string char_string;
-    for(int i=0;i<len;i++){
+    for(int i=0;i<len;i++){                     // postfix : 0 -> len-1 
         if(is_operator(exp[i])){
 
             string string1 = st.top(); st.pop();
             string string2 = st.top(); st.pop();
 
             string temp_string = "";
-            temp_string += exp[i];
+            temp_string += exp[i];              // (exp) str2  str1 
             temp_string += string2;
             temp_string += string1;
             

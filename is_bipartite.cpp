@@ -3,7 +3,7 @@ using namespace std;
 
 #define V 4
 
-int G[][V] = {      {0, 1, 0, 1}, 
+int G[][V] = {      {0, 1, 0, 1},                   //* declaration
                     {1, 0, 1, 0}, 
                     {0, 1, 0, 1}, 
                     {1, 0, 1, 0} 

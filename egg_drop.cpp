@@ -18,10 +18,10 @@ using namespace std;
 
 // Observation 3:
 // In the previous observation we can infer that if we have 1 egg then the minimum worst case trial would be 
-// the number of floors, because we have individually check if the egg breaks from the certain floor.
+// the number of floors, because we have to individually check if the egg breaks from the certain floor.
 // But in case we have more than 1 egg then we can be aggressive with our search i.e instead of picking the
 // first floor to start with we can pick a somewhere in between first and top floor and proceed.
-// The innermost loop in the silution is doing the exact smae thing by considering all the intermediate 
+// The innermost loop in the silution is doing the exact same thing by considering all the intermediate 
 // (bottom to top) floors as the starting floor.
 
 // Observation 4:
@@ -38,12 +38,13 @@ int egg_drop(int n, int k){
 
     for(int i=0;i<=n;i++){
         for(int j=0;j<=k;j++){
+            if(i == 0 || j==0){dp[i][j] = 0;continue;} //*
             dp[i][j] = INT_MAX;
         }
     }
 
-    for(int i=1;i<=n;i++){dp[i][0]=0;dp[i][1]=1;}
-    for(int i=1;i<=k;i++){dp[1][i]=i;}
+    for(int i=1;i<=n;i++){dp[i][1]=1;}  //*
+    for(int i=1;i<=k;i++){dp[1][i]=i;}  //*
 
     for(int i=2;i<=n;i++){
         for(int j=2;j<=k;j++){

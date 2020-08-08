@@ -9,6 +9,13 @@ ll gcd(ll a, ll b)
     return gcd(b, a % b);  
 } 
 
+// a.x + b.y = gcd                  ... eqn 1
+// (b%a).x1 + a.y1 = gcd  
+// (b - (⌊b/a⌋).a).x1 + a.y1  = gcd
+// b.x1 + a.(y1 - (⌊b/a⌋).x1) = gcd ... eqn2
+// x = y1 - ⌊b/a⌋ * x1
+// y = x1
+
 ll gcd_extended(ll a, ll b, ll& x, ll& y) {
     if (b == 0) {
         x = 1;
@@ -22,9 +29,7 @@ ll gcd_extended(ll a, ll b, ll& x, ll& y) {
     return d;
 }
 
-
 ll mod_inverse(ll a, ll m){
-
     ll x,y;
     ll g = gcd_extended(a,m,x,y);
     ll res= -1;
