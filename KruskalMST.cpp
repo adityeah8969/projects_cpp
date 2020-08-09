@@ -18,13 +18,7 @@ int parent[105];
 int ranks[105];
 
 int finds(int a){
-
-    if(parent[a]!=a){
-        parent[a] = parent[parent[a]];
-        a=parent[a];
-        finds(a);
-    }
-
+    if(parent[a]!=a){parent[a] = finds(parent[a]);}     // *
     return parent[a];
 }
 

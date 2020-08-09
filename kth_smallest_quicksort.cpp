@@ -8,10 +8,10 @@ int do_partition(int arr[], int low, int high){
     for(int j=low;j<high;j++){
         if(arr[j] <= arr[high]){
             swap(arr[j], arr[i]);
-            i++;
+            i++;                                                   //*
         }
     }
-    swap(arr[i],arr[high]);
+    swap(arr[i],arr[high]);                                        //*
     return i;
 }
 
@@ -19,12 +19,12 @@ int random_partition(int arr[], int low, int high){
     int n = high-low+1;
     srand(time(0));
     int p = low + rand()%n;
-    swap(arr[high], arr[p]);
-    return do_partition(arr, low, high);
+    swap(arr[high], arr[p]);                                        //  *
+    return do_partition(arr, low, high);                            //  *
 }
 
 int kth_smallest(int arr[], int low, int high, int k){
-    if(k>=low && k<=high){
+    if(k>=low && k<=high){                                          //*
         int pos = random_partition(arr, low, high);
         if(pos == k){return arr[pos];}
         if(pos > k){return kth_smallest(arr, low, pos-1, k);}
@@ -36,8 +36,8 @@ int kth_smallest(int arr[], int low, int high, int k){
 
 void quicksort(int arr[], int low, int high){
     if(low<high){
-        int p = random_partition(arr, low, high);
-        quicksort(arr, low, p-1);
+        int p = random_partition(arr, low, high);           // random_partition internally calls do_partition 
+        quicksort(arr, low, p-1);                           // which actually returns the partition index
         quicksort(arr, p+1, high);
     }
     return;

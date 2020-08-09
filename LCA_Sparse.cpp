@@ -33,7 +33,7 @@ void dfs(int src){
 
 void preCompute(){
     
-    for(int i=1;i<N;i++){dp[i][0]=parent[i];}
+    for(int i=1;i<N;i++){dp[i][0]=parent[i];}          //*
     
     for(int j=1;j<level;j++){
         for(int i=1;i<N;i++){
@@ -67,7 +67,7 @@ int LCA(int u,int v){
         }
     }
     
-    return dp[u][0];
+    return dp[u][0];                                //*
 }
 
 
@@ -88,7 +88,6 @@ void init(){
 
 int main() {
     
-    
     addEdge(1,2); 
     addEdge(1,3); 
     addEdge(2,4); 
@@ -100,7 +99,7 @@ int main() {
     init();
     
     int src=1;
-    depth[src]++;
+    depth[src]++;               //*
     parent[src]=-1;
     visited[src]=true;
     dfs(src);                   // to compute depth and parent

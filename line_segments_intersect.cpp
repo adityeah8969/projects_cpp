@@ -22,17 +22,17 @@ bool on_segment(pp p1, pp q1, pp p2){
 
 bool intersects(pp p1, pp q1, pp p2, pp q2){
 
-    int o1 = cross_product(p1, q1, p2);
+    int o1 = cross_product(p1, q1, p2);                     //*
     int o2 = cross_product(p1, q1, q2);
-    int o3 = cross_product(p1, q1, p2);
-    int o4 = cross_product(p1, q1, q2);
+    int o3 = cross_product(p2, q2, p1);
+    int o4 = cross_product(p2, q2, q1);
 
     if(o1!=o2 && o3!=o4){return true;}
 
-    if(o1 == 0 && on_segment(p1, q1, p2)){return true;}
+    if(o1 == 0 && on_segment(p1, q1, p2)){return true;}     //*
     if(o2 == 0 && on_segment(p1, q1, q2)){return true;}
-    if(o3 == 0 && on_segment(p1, q1, p2)){return true;}
-    if(o4 == 0 && on_segment(p1, q1, q2)){return true;}
+    if(o3 == 0 && on_segment(p2, q2, p1)){return true;}
+    if(o4 == 0 && on_segment(p2, q2, q1)){return true;}
 
     return false;
 }
