@@ -19,7 +19,7 @@ int query(int l,int r){
 
     int mini=INT_MAX;
 
-    while(l<r && l%blockSize!=0 && l!=0){
+    while(l<r && l%blockSize!=0){
         mini=min(mini,arr[l]);
         l++;
     }
@@ -43,7 +43,7 @@ void preProcess(int input[]){
     int blockIndex=-1;
 
     for(int i=0;i<n;i++){
-        arr[i]=input[i];
+        arr[i]=input[i];                                        //* different array is getting used, not needed though
         if(i%blockSize==0){blockIndex++;}
         blockArr[blockIndex]=min(blockArr[blockIndex],arr[i]);
     }

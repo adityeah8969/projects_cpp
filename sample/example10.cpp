@@ -1,61 +1,40 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+ 
 #define ll long long int
+#define M 200005
 
+#define INF INT64_MAX
+#define NEG_INF INT64_MIN
+
+#define pp pair<ll, ll>
+
+#define f1 for(int i=1;i<=n;i++)
+#define f0 for(int i=0;i<n;i++)
+
+#define vll vector<ll>
+#define vpp vector<pp>
+#define pb push_back
+
+#define max_heap priority_queue<ll>
+#define min_heap priority_queue<ll,vector<ll>, greater<ll>>
+
+int n;
+ 
 int main(){
-
+    
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int n,m;
-    cin>>n>>m;
-
-    ll a[n+5],b[m+5];
-
-    for(int i=n;i>=1;i--){cin>>a[i];}
-    for(int i=m;i>=1;i--){cin>>b[i];}
-
-    ll x[n+5];
-    int prev = 0;
-    bool inco = false;
-
-    for(int i=1;i<=m;i++){
-        if(inco){break;}
-        ll temp = b[i];
-        for(int j=prev+1;j<=n;j++){
-            if(a[j]<temp || (j==n && a[j]!=temp)){
-                inco = true;
-                break;
-            }
-            if(a[j]==temp){
-                x[i] = j;
-                prev = j;
-                break;
-            }
-        }
+    int t;
+    cin>>t;
+    
+    while(t--){
+        
+        
+        
+        
     }
     
-    if(inco){cout<<0<<"\n";return 0;}
-
-    vector<int> vec;
-    int count;
-    for(int i=1;i<m;i++){
-        count = 0;
-        int index = x[i];
-        while(a[index]>=b[i] && index<=n){
-            count++;
-            index++;
-        }
-        vec.push_back(count);
-    }
-
-
-    ll ans =1LL;
-    for(int i=0;i<vec.size();i++){
-        ans*=vec[i];
-    }
-
-    cout<<ans<<"\n";
     return 0;
 }

@@ -11,7 +11,9 @@ int word_wrap(int l[], int n, int M){
     int c[n+5];
 
     vector<int> words;
-    words.push_back(-1);
+    words.push_back(-1);    //*
+
+    for(int i=0;i<n;i++){words.push_back(l[i]);}
 
     for(int i=1;i<=n;i++){
         spaces[i][i] = M - words[i];
@@ -38,6 +40,8 @@ int word_wrap(int l[], int n, int M){
         }
 
     }
+    
+
     return c[n];
 }
 

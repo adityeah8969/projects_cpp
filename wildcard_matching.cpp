@@ -19,9 +19,9 @@ bool wildcart_matching(string text, string pattern){
         }
     }
 
-    dp[0][0]=ture;
+    dp[0][0]=true;
     int start = 1;
-    while(patter[start]=='*'){
+    while(pattern[start]=='*'){
         dp[0][start] = true;
         start++;
     }

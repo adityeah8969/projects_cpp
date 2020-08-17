@@ -36,15 +36,15 @@ void primMst(int src){
 
         int u=pq.top().second;
         pq.pop();
-        mst[u]=true;
-
+        mst[u]=true;                                        //mst[u] gets true only after its proven that the vertex
+                                                            //has been introduced via its least weight.
         for(auto it=Adj[u].begin();it!=Adj[u].end();it++){
             int v =(*it).first;
             int weight=(*it).second;
-            if(!mst[v] && key[v]>weight){
-                key[v]=weight;
-                parent[v]=u;
-                pq.push(make_pair(key[v],v));
+            if(!mst[v] && key[v]>weight){                   // we dont make mst[v] true inside because we want the 
+                key[v]=weight;                              // pair having vertex 'v' get inside the priority queue
+                parent[v]=u;                                // via some of its edges. Then picking the pair with least
+                pq.push(make_pair(key[v],v));               // key[v] possible using priority queue.
                 
             }
         }

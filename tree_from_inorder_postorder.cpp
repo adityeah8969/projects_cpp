@@ -10,10 +10,10 @@ static int k =0;
 
 void construct_tree(int in[], int post[], int l, int r, int root){
 
-    if(r==l){
-        arr[root] = in[l];
-        return;
-    }
+    // if(r==l){
+    //     arr[root] = in[l];
+    //     return;
+    // }
 
     arr[root] = post[k];
     

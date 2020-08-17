@@ -28,7 +28,7 @@ ll query(int qs, int qe, int low, int high, int i){
 void update(int qs, int qe, int low, int high, int i, ll diff){
 
     if(lazy[i]!=0){
-        segment_tree[i] = (high-low+1)*lazy[i];
+        segment_tree[i] += (high-low+1)*lazy[i];
         if(low!=high){
             lazy[2*i+1]+=lazy[i];
             lazy[2*i+2]+=lazy[i];
@@ -39,7 +39,7 @@ void update(int qs, int qe, int low, int high, int i, ll diff){
     if(qe<low || qs>high){return;}
 
     if(qs<=low && qe>=high){
-        segment_tree[i] = (high-low+1)*diff;
+        segment_tree[i] += (high-low+1)*diff;
         if(low!=high){
             lazy[2*i+1]+=diff;
             lazy[2*i+2]+=diff;

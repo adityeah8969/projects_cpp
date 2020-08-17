@@ -10,10 +10,10 @@ static int k =0;
 
 void construct_tree(string in, string pre, int l, int r,int root){
 
-    if(r==l){
-        arr[root] = in[l];
-        return;
-    }
+    // if(r==l){
+    //     arr[root] = in[l];
+    //     return;
+    // }
 
     arr[root] = pre[k];
     

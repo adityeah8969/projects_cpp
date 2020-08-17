@@ -8,7 +8,7 @@ int M[N][(int)log2(N)+2];
 #define ll long long int
 
 // Time Complexity O(NlogN) ->preprocessing  + O(1) -> per query
-// M[i][j] stores the index with minimum arr[i] value where index E [i,i+(1<<j)-1]
+// M[i][j] stores the INDEX with minimum arr[i] value where index E [i,i+(1<<j)-1]
 // e.g M[2][3] stores the index with minimum arr[i] value where index E [2,9] i.e chunk of pow(2,j) indices inclusive of index 2.
 
 void preProcess(){

@@ -10,7 +10,7 @@ int post[M];
 void construct_postorder(int in[], int pre[], int low, int high, int root_index){
     
     int root = pre[root_index];
-    post[k] = root;
+    post[k] = root;                                                                     // post[] filled backwards
 
     int mid;
     for(int i=low;i<=high;i++){
@@ -24,11 +24,11 @@ void construct_postorder(int in[], int pre[], int low, int high, int root_index)
 
     if(high>=mid+1){
         k--;
-        construct_postorder(in, pre, mid+1, high, root_index+left_nodes+1);
+        construct_postorder(in, pre, mid+1, high, root_index+left_nodes+1);             //* right node first
     }
     if(low<=mid-1){
         k--;
-        construct_postorder(in, pre, low, mid-1, root_index+1);
+        construct_postorder(in, pre, low, mid-1, root_index+1);                         //* left node later
     }
     return;
 }
@@ -44,9 +44,9 @@ int main(){
     int pre[] = {1, 2, 4, 5, 3, 6};
 
     int n = sizeof(in)/sizeof(in[0]);
-    k = n-1;
-    construct_postorder(in, pre, 0, n-1, 0);
-    show_postorder(n);
+    k = n-1;                                                                               // k initialized to n-1
+    construct_postorder(in, pre, 0, n-1, 0);                                               // to enable array filling 
+    show_postorder(n);                                                                     // backwards
 
     return 0;
 }

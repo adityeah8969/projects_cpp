@@ -11,6 +11,8 @@ int t[M];
 // https://www.youtube.com/watch?v=V-sEwsca1ak
 
 // Linear time Manacher's algorithm to find longest palindromic substring.
+
+// Expand across an index till there is a character mismatch, let this be called current palindrome centered at index i.
 // There are 4 cases to handle
 // Case 1 : Right side palindrome is totally contained under current palindrome. 
 //          In this case do not consider this as center.
@@ -32,7 +34,7 @@ int t[M];
 
 
 // i/p: abcd ---> o/p: #a#b#c#d#
-string modify(string str){
+string modify(string str){                  //*
     string res="";
     int len = str.length();
     for(int i=0;i<len;i++){
@@ -48,8 +50,8 @@ void manachers_algo(string str){
     string s = modify(str);
 
     int len = s.length();
-    int start = 0;
-    int end = 0;
+    int start = 0;                  //*
+    int end = 0;                    //*
 
     for(int i=0;i<len;){
 
@@ -59,29 +61,29 @@ void manachers_algo(string str){
             end++;
         }
 
-        t[i] = end - start + 1;
+        t[i] = end - start + 1;     
         
         // breaking the loop if right end of current palindrome reaches the end of string.
-        if(end == len-1){break;}
+        if(end == len-1){break;}    //*
 
         // making sure that we always pick a mormal string character(not '#') for initializing new_center.
         // note that 'new_center' may get changed in the later section of code
-        int new_center = end + (i%2 ==0 ? 1 : 0);
+        int new_center = end + (i%2 ==0 ? 1 : 0);      //*
 
         // following loop checks for new_center on the right of i.
         for(int j=i+1;j<len;j++){
-            // j-i will keep increasing from 1 onwards, so i - (j-1) represents left shift of i by (j-i).
+            // j-i will keep increasing from 1 onwards, so i - (j-i) represents left shift of i by (j-i).
             //[i-(j-i)] represents the index of left mirror of the current palindrome centered at i shifted left by (j-i).
             //if t[i-(j-i)] crosses the leftmost bound of current palindrome centered (i) then we pick '2*(end-j)+1'.
             //2*(end-j)+1 denotes the length of the palindrome at [i-(j-i)] contained within the current palindrome
             //centered at i.
-            t[j] = min(t[i-(j-i)],2*(end-j)+1);
+            t[j] = min(t[i-(j-i)],2*(end-j)+1);         //*
 
             //new_center will only be picked in case the palindrome situated at [i-(j-i)] index (left mirror index)
             // is a proper prefix of the current palindrome centered at i. 
-            if(j+t[i-(j-i)]/2 == end){
+            if(j+t[i-(j-i)]/2 == end){                  //*
                 new_center = j;
-                break;
+                break;                                  //*
             }
         }
 
@@ -92,7 +94,7 @@ void manachers_algo(string str){
 
     int maxi = -1;
     for(int i=0;i<len;i++){maxi = max(maxi,t[i]);}
-    cout<<"The maximum length palindromic substring is "<<maxi/2<<"\n";
+    cout<<"The maximum length palindromic substring is "<<maxi/2<<"\n";         //* maxi/2
 
     return;
 }

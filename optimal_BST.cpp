@@ -27,7 +27,7 @@ int optimal_BST_cost(int keys[], int freq[], int n){
         for(int j=0;j<n;j++){
             dp[i][j] = INT_MAX;
             if(i==j){
-                dp[i][i] = freq[i];
+                dp[i][i] = freq[i];                     //*
             }
         }
     }
@@ -37,7 +37,7 @@ int optimal_BST_cost(int keys[], int freq[], int n){
             int j = i+l;
             int freq_s = get_range_sum(i,j);
             for(int r=i;r<=j;r++){
-                int temp_cost = 0LL;
+                int temp_cost = 0LL;                    //*
                 temp_cost+=r>i?dp[i][r-1]:0LL;
                 temp_cost+=r<j?dp[r+1][j]:0LL;
                 temp_cost+=freq_s;

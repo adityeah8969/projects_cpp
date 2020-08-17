@@ -10,12 +10,12 @@ ll nCr(ll n, ll r){
     r = min(r,n-r);
 
     ll c[r+5];
-    for(int i=0;i<=r;i++){c[i]=0LL;}
+    for(int i=0;i<=r;i++){c[i]=0LL;}                        //*
 
     c[0] =1LL;
 
     for(ll i=1;i<=n;i++){
-        for(ll j=min(i,r);j>0;j--){
+        for(ll j=min(i,r);j>0;j--){                         //*
             c[j] = (c[j] + c[j-1])%M;
         }
     }

@@ -45,6 +45,6 @@ void init(){
 
 int main(){
     init();
-    cout<<" Minimum weight hamiltonian cycle(TSP): " <<tsp(1,0)<< "\n";
+    cout<<" Minimum weight hamiltonian cycle(TSP): " <<tsp(1,0)<< "\n";               //*
     return 0;
 }

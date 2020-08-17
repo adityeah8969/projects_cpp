@@ -12,7 +12,7 @@ void insert_key(int key){
     min_heap[heap_size++] = key;
     int i = heap_size-1;
     while(i>0){
-        if(min_heap[(i-1)/2]>min_heap[i]){swap(min_heap[(i-1)/2], min_heap[i]);}
+        if(min_heap[(i-1)/2]>min_heap[i]){swap(min_heap[(i-1)/2], min_heap[i]);}        //*
         i = (i-1)/2;
     }
     return;
@@ -26,7 +26,7 @@ void heapify(int i){
         min_index = -1;
         if(2*i+1 < heap_size){mini = min_heap[2*i+1];min_index = 2*i+1;}
         if(2*i+2 < heap_size  &&  min_heap[2*i+2]<mini){mini = min_heap[2*i+2];min_index = 2*i+2;}
-        if(min_heap[i]<mini || min_index == -1){break;}
+        if(min_heap[i]<mini || min_index == -1){break;}                                 //*
         swap(min_heap[i], min_heap[min_index]);
         i = min_index;
     }
@@ -43,7 +43,7 @@ int extract_min(){
     
     int ans = min_heap[0];
     min_heap[0] =  min_heap[heap_size-1];
-    heap_size--;
+    heap_size--;                                                                        //*
     heapify(0);
     return ans;
 }

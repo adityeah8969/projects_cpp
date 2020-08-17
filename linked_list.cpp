@@ -47,6 +47,11 @@ void insert_at_beginning(node** head, int val){
 
 void insert_after(node** head, node* temp, int val){
 
+    if(temp == NULL){                                  // cant insert an NULL  
+        cout<<"can't insert at invalid location\n";
+        return;
+    }
+
     node* pcrawl = *head;
     node* prev = *head;
     
@@ -54,7 +59,15 @@ void insert_after(node** head, node* temp, int val){
         prev = pcrawl;
         pcrawl = pcrawl->next;
     }
-
+    
+    if(pcrawl==NULL){                                   // if an invalid location is passed as a parameter
+        cout<<"can't insert at invalid location\n";
+        return;
+    }
+    
+    prev = pcrawl;                                      // prev->next will refer to the new node
+    pcrawl = pcrawl->next;
+    
     node* to_insert = new node(val);
     prev->next = to_insert;
     to_insert->next = pcrawl;
@@ -87,6 +100,11 @@ void delete_key(node** head, int val){
         prev = pcrawl;
         pcrawl = pcrawl->next;
     } 
+
+    if(pcrawl == NULL){
+        cout<<"no such element exists \n";
+        return;
+    }
 
     node* to_delete = pcrawl;
     prev->next = pcrawl->next;

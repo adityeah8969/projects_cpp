@@ -12,7 +12,6 @@ int tracker;
 stack<int>S;
 
 
-
 void addEdge(int a,int b){
     Adj[a].push_back(b);
     rAdj[b].push_back(a);
@@ -20,12 +19,12 @@ void addEdge(int a,int b){
 }
 
 void kosaraju_pass1(int u){
-    for(auto it=rAdj[u].begin();it!=rAdj[u].end();it++){
+    for(auto it=rAdj[u].begin();it!=rAdj[u].end();it++){                // pass1 on reversed edges
         int v=*it;
         if(!visitedr[v]){visitedr[v]=true;kosaraju_pass1(v);}
     }
-    order[tracker++]=u;
-    return;
+    order[tracker++]=u;                                                 // order[] stores the discovery time in reverse 
+    return;                                                             // order.
 }
 
 void kosaraju_pass2(int u){
@@ -45,7 +44,7 @@ void init(){
         rAdj[i].clear();
         order[i]=0;
     }
-    tracker=1;
+    tracker=1;                                                  //*
     while(!S.empty()){S.pop();}
     return;
 }
@@ -77,12 +76,12 @@ int main(){
     // kosaraju_pass1(0);
     int strongly_connected_components=0;
     cout<<"Following are the SCCs: \n";
-    for(int i=N;i>=1;i--){
-        int u=order[i];
+    for(int i=N;i>=1;i--){                                  // traversing through the order[] in reverse order
+        int u=order[i];                                     // i.e recent discovery first
         if(!visited[u]){
               visited[u]=true;
               kosaraju_pass2(u);
-              strongly_connected_components++;
+              strongly_connected_components++;              // *
               print_scc();
               cout<<"\n";
         }

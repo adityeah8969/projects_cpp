@@ -11,9 +11,9 @@ void sieve_of_eratosthenes(){
 
     for(int i=0;i<M;i++){prime[i]=true;spf[i]=i;}
 
-    for(int i=2;i*i<M;i++){
+    for(int i=2;i*i<M;i++){                         //* i*i<M
         if(prime[i]){
-            for(int j=2*i;j<M;j+=i){
+            for(int j=2*i;j<M;j+=i){                //* j<M
                 prime[j]=false;
                 spf[j]=min(spf[j],i);
             }

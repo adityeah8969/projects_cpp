@@ -46,7 +46,7 @@ void print_soln(node* head){
 
 node* merge(node* a, node* b){
 
-    node* head1 = NULL;
+    node* head1 = NULL;                         // initialize head1 with NULL
 
     node* pcrawl_a = a;
     node* pcrawl_b = b;
@@ -84,7 +84,7 @@ void split_list(node* head, node** a, node** b){
     if(head == NULL){return;}
 
     node* slow = head;
-    node* fast = head->next;
+    node* fast = head->next;                    //* make fast point to head->next
 
     while(fast && fast->next){
         slow=slow->next;
@@ -128,7 +128,7 @@ int main(){
     print_soln(head);
     merge_sort(&head);
 
-    cout<<"list after sorting\n";
+    cout<<"\nlist after sorting: ";
     print_soln(head);
 
     return 0;
