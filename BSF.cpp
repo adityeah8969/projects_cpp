@@ -8,26 +8,20 @@ bool visited[10];
 int parent[10];
 int N;
 
-
 void init(){
-
     for(int i=1;i<=N;i++){
         Adj[i].clear();
         visited[i]=false;
         parent[i]=-1;
     }
-
     return;
 }
 
-
-
 void bfs(list<int>Q){
-
-    while(!Q.empty()){
+    while(!Q.empty()){                                                      // O(V)
         int u=Q.front();
-        Q.pop_front();
-        for(auto it=Adj[u].begin();it!=Adj[u].end();it++){
+        Q.pop_front();                                                      // O(1)
+        for(auto it=Adj[u].begin();it!=Adj[u].end();it++){                  // O(Expetcted Adjacent Edge) or O(Eaj)
             int v=*it;
             if(!visited[v]){
                 visited[v]=true;
@@ -35,15 +29,12 @@ void bfs(list<int>Q){
                 Q.push_back(v);
             }
         }
-    }
-    
+    }    
     return;
-}
-
+}                                                                           
 
 void bfs_util(int u){
-
-    for(int i=1;i<=N;i++){
+    for(int i=1;i<=N;i++){  
         if(!visited[i]){
             list<int>Q;
             visited[i]=true;
@@ -51,10 +42,8 @@ void bfs_util(int u){
             bfs(Q);
         }
     }
-
     return;
 }
-
 
 void addEdge(int u,int v){
     Adj[u].push_back(v);
@@ -71,9 +60,8 @@ void display(){
 
 int main(){
 
-    init();
-
     N=5;
+    init();
 
     addEdge(1,2);
     addEdge(1,3);
@@ -81,9 +69,13 @@ int main(){
     addEdge(2,5);
     addEdge(4,5);
 
-  
     bfs_util(1);
     display();
 
     return 0;
 }
+
+// Time Complexity:
+// O(V) * (O(1) + O(Eaj))   ->   O(E)
+// Note: The actual complexity is O(E + V) considering 'bfs_util' method , with complexity O(V),
+// might run extensilvely in case V >> E. So O(V + E) gives the best out of both worlds.
