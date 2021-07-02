@@ -1,79 +1,80 @@
-#include <iostream>
-#include <list>
-#include <queue>
+#include<bits/stdc++.h>
 using namespace std;
 
-list<int>Adj[10];
-bool visited[10];
-int parent[10];
-int N;
+const int M = 100;
+vector<int> Adj[M];
+bool visited[M];
+int parent[M];
+
 
 void init(){
-    for(int i=1;i<=N;i++){
-        Adj[i].clear();
+    for(int i=0;i<M;i++){
         visited[i]=false;
         parent[i]=-1;
+        Adj[i].clear();
     }
     return;
 }
 
-void bfs(list<int>Q){
-    while(!Q.empty()){                                                      // O(V)
-        int u=Q.front();
-        Q.pop_front();                                                      // O(1)
-        for(auto it=Adj[u].begin();it!=Adj[u].end();it++){                  // O(Expetcted Adjacent Edge) or O(Eaj)
-            int v=*it;
+void bfs(queue<int> Q){
+    while(!Q.empty()){                                              // O(V)
+        int u = Q.front();                                          // O(1)
+        Q.pop();
+        int v;
+        for(auto it=Adj[u].begin();it!=Adj[u].end();it++){          // O(Expetcted Adjacent Edge) or O(Eaj)
+            v = *it;
             if(!visited[v]){
-                visited[v]=true;
                 parent[v]=u;
-                Q.push_back(v);
+                visited[v]=true;
+                Q.push(v);
             }
         }
-    }    
+        
+    }
     return;
-}                                                                           
+}
 
-void bfs_util(int u){
-    for(int i=1;i<=N;i++){  
+void bfs_util(int V){
+    for(int i=1;i<=V;i++){
         if(!visited[i]){
-            list<int>Q;
             visited[i]=true;
-            Q.push_back(i);
+            queue<int> Q;
+            Q.push(i);
             bfs(Q);
         }
     }
     return;
 }
 
-void addEdge(int u,int v){
+
+void add_edge(int u, int v){
     Adj[u].push_back(v);
     Adj[v].push_back(u);
     return;
 }
 
-void display(){
-    for(int i=1;i<=5;i++){
-        cout<<parent[i]<<"-->"<<i<<"\n";
-    }
+
+void display(int V){
+    for(int i=1;i<=V;i++){cout<<parent[i]<<"--->"<<i<<"\n";}
     return;
 }
 
 int main(){
-
-    N=5;
+    int V=5;
+    
     init();
-
-    addEdge(1,2);
-    addEdge(1,3);
-    addEdge(2,4);
-    addEdge(2,5);
-    addEdge(4,5);
-
-    bfs_util(1);
-    display();
-
+    
+    add_edge(1,2);
+    add_edge(1,3);
+    add_edge(2,4);
+    add_edge(2,5);
+    add_edge(4,5);
+    
+    bfs_util(V);
+    display(V);
     return 0;
 }
+
 
 // Time Complexity:
 // O(V) * (O(1) + O(Eaj))   ->   O(E)
