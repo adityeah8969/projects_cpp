@@ -4,6 +4,8 @@ using namespace std;
 #define V 4 
 int dist[100][100];
 
+// Finding shortest paths in a weighted graph with positive or negative edge weights (but with no negative cycles).
+
 void FloydWarshall(int graph[][V]){
 
     int dist[V][V];
@@ -24,10 +26,8 @@ void FloydWarshall(int graph[][V]){
         }
     }
 
-
     for(int i=0;i<V;i++){
         for(int j=0;j<V;j++){
-            
             if(dist[i][j]==INT_MAX){cout<<"INF  ";}
             else
             cout<<dist[i][j]<<"  ";
