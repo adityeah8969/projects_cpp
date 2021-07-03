@@ -4,7 +4,7 @@ using namespace std;
 #define V 4 
 int dist[100][100];
 
-// Finding shortest paths in a weighted graph with positive or negative edge weights (but with no negative cycles).
+// Finding shortest paths in a weighted directed graph with positive or negative edge weights (but with no negative cycles).
 
 void FloydWarshall(int graph[][V]){
 
