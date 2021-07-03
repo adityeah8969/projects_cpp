@@ -50,7 +50,7 @@ int fordFulkerson(int graph[V][V],int s,int t){
 
         int flow=INT_MAX;
 
-        for(int v=t;v!=s;v=parent[v]){      //* fron v to s i.e backwards
+        for(int v=t;v!=s;v=parent[v]){      //* from v to s i.e backwards
             int u=parent[v];
             flow=min(flow,rGraph[u][v]);
         }
@@ -81,3 +81,5 @@ int main(){
   
     return 0; 
 } 
+
+// https://github.com/adityeah8969/allNotes/blob/myNotes/algo_doubts.txt
