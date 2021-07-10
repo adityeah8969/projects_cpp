@@ -10,15 +10,12 @@ bool visited[N];
 int parent[N];
 int dp[N][level];
 
-
 void addEdge(int i,int j){
     Adj[i].push_back(j);
     Adj[j].push_back(i);
 }
 
-
 void dfs(int src){
-    
     for(auto it=Adj[src].begin();it!=Adj[src].end();it++){
         int v=*it;
         if(!visited[v]){
@@ -57,19 +54,17 @@ int LCA(int u,int v){
         }
     }
 
-
     if(u==v){return u;}
     
     for(int i=level-1;i>=0;i--){
         if(dp[u][i]!=-1 && dp[u][i]!=dp[v][i]){     // let 2^kth ancestor be LCA(u,v). Ancestors above 2^kth ancestorlevel will also have the equality dp[u][i]==dp[v][i] true.
-            u=dp[u][i];                             // so we are looking for the level where we hit dp[u][i]!=dp[v][i] first. After wich we set u and v to dp[u][i] , dp[v][i]
+            u=dp[u][i];                             // so we are looking for the level where we hit dp[u][i]!=dp[v][i] first. After which we set u and v to dp[u][i] , dp[v][i]
             v=dp[v][i];                             // respectively. The outer loop ends with u & v being just below LCA.
         }
     }
     
     return dp[u][0];                                //*
 }
-
 
 void init(){
     
@@ -111,7 +106,3 @@ int main() {
     
     return 0;
 }
-
-
-
-
