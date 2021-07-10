@@ -73,7 +73,7 @@ void build(int low, int high, int i){
 int main(){
 
     int n= sizeof(arr)/sizeof(arr[0]);
-    build(0,n-1,0);
+    build(0,n-1,0); 
 
     cout<<query(2, 4, 0, n-1,0)<<"\n";
     update(3,4,0,n-1,0,10);

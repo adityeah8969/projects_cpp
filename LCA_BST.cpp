@@ -12,9 +12,7 @@ void init(){
 }
 
 int lca(int u, int v){
-
     int root = 0;
-
     while(root!=-1){
 
         if(u<bst[root] && v<bst[root]){root = 2*root+1;}
@@ -22,26 +20,28 @@ int lca(int u, int v){
         else{break;}
 
     }
-
     return root==-1?-1:bst[root];
 }
 
 int main(){
 
     init();
-    
+ 
     bst[0] = 20;
     bst[1] = 8;
     bst[2] = 22;
     bst[3] = 4;
     bst[4] = 12;
-    bst[5] = 10;
-    bst[6] = 14;
+    bst[5] = INT_MAX;           // empty nodes
+    bst[6] = INT_MAX;
+    bst[7] = INT_MAX;
+    bst[8] = INT_MAX;
+    bst[9] = 10;
+    bst[10] = 14;
 
     cout<<lca(10, 14)<<"\n";
     cout<<lca(14, 8)<<"\n";
     cout<<lca(10, 22)<<"\n";
-
 
     return 0;
 }
