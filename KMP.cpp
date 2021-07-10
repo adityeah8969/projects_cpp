@@ -112,3 +112,13 @@ int main(){
 
     return 0;
 }
+
+// Time Complexity: outer loop is O(N). Inner loop makes the the pointer 'j' decrease at times. Important observation here is that the decrement can happen only
+// as many times as the number of increments (matches) before the mismatch. i.e,
+// Text:    aaaabaabab
+// Pattern: aaaaa
+// with 0 based indexing in mind, the first mismatch happens when the inner pointer j=4 (last 'a' of the pattern). Now the decrement will also happen 4 times
+// in this case. Next decrement process will happen when i = 7 (second 'b'). In here, since the increment happened twice, therefore the decrement also happened twice.
+// So basically to have n negative steps, you need n positive steps & n positive steps means you are done traversing through the whole text.
+// So worst time complexity is n + n = 2n which is O(n). The time complexity of building proper prefix suffix table is O(m). 
+// Overall time complexity O(m+n).

@@ -11,7 +11,7 @@ ll lazy[4*M];
 ll query(int qs, int qe, int low, int high, int i){
 
     if(lazy[i]!=0){
-        segment_tree[i] = (high-low+1)*lazy[i];
+        segment_tree[i] += (high-low+1)*lazy[i];
         if(low!=high){
             lazy[2*i+1]+=lazy[i];
             lazy[2*i+2]+=lazy[i];

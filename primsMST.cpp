@@ -2,7 +2,6 @@
 using namespace std;
 
 list<pair<int,int>> Adj[105];             
-bool visited[105];
 int N;
 int key[105];
 int parent[105];
@@ -17,20 +16,19 @@ void addEdge(int u,int v,int w){
 
 void init(int src){
     for(int i=0;i<N;i++){
-        visited[i]=false;
         mst[i]=false;
         key[i]=INT_MAX;
         parent[i]=-1;
     }
-    visited[src]=true;
     key[src]=0;
     mst[src]=true;
     return;
 }
 
-void primMst(int src){
+void primMst(int src, int V){
 
     pq.push(make_pair(0,src));
+    int counter = 1;
 
     while(!pq.empty()){
 
@@ -38,6 +36,8 @@ void primMst(int src){
         pq.pop();
         mst[u]=true;                                        //mst[u] gets true only after its proven that the vertex
                                                             //has been introduced via its least weight.
+        if(counter>V){break;} 
+        counter++;                                                            
         for(auto it=Adj[u].begin();it!=Adj[u].end();it++){
             int v =(*it).first;
             int weight=(*it).second;
@@ -45,7 +45,6 @@ void primMst(int src){
                 key[v]=weight;                              // pair having vertex 'v' get inside the priority queue
                 parent[v]=u;                                // via some of its edges. Then picking the pair with least
                 pq.push(make_pair(key[v],v));               // key[v] possible using priority queue.
-                
             }
         }
     }
@@ -53,11 +52,9 @@ void primMst(int src){
     cout<<"parent   ->   child\n";
     for(int i=1;i<N;i++){
         cout<<"  "<<parent[i]<<" ->   "<<i<<"\n";
-
     }
     return;
 }
-
 
 int main(){
 
@@ -80,7 +77,8 @@ int main(){
 
     int src=0;
     init(src);
-    primMst(src);
+    primMst(src, N);
 
     return 0;
 }
+// Time Complexity: O(V)*(O(logV)+O(Ev)*O(logV)) = O(ElogV)

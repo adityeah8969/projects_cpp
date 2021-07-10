@@ -46,7 +46,6 @@ void kruskalMST(){
 
     sort(Edges, Edges+E, comparator1);
 
-
     for(int i=0;i<E;i++){
         int a=Edges[i].src;
         int b=Edges[i].dest;
@@ -59,16 +58,13 @@ void kruskalMST(){
             result.push_back(Edges[i]);
         }
     }
-
     for(int i=0;i<result.size();i++){
         cout<<result[i].src<<"----->"<<result[i].dest<<"\n";
     }
     return;
 }
 
-
 void init(){
-
     for(int i=0;i<=V;i++){
         parent[i]=i;
         ranks[i]=1;
@@ -111,3 +107,4 @@ int main(){
 
     return 0;
 }
+// Time Complexity: O(ElogV)
