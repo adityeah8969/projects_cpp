@@ -1,161 +1,178 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-
-#define ll long long int
 
 class node{
     public:
-        int data;
-        node* next;
-        node(int val){
-            this->data = val;
-            this->next = NULL;
-        }
+    int data;
+    node* next;
+    node(int val){
+        this->data = val;
+        this->next = NULL;
+    }
 };
 
 void append(node** head, int val){
-
-    node* prev = *head;
-    node* pcrawl = *head;
-
-    while(pcrawl!=NULL){
-        prev = pcrawl;
-        pcrawl = pcrawl->next;
-    }
-
-    node* to_insert = new node(val);
-    if(prev == NULL){
-        *head = to_insert;
+    
+    if(*head == NULL){
+        *head = new node(val);
         return;
     }
-    prev->next = to_insert;
+    
+    node* pcrawl = *head;
+    while(pcrawl->next!=NULL){
+        pcrawl = pcrawl->next;
+    }
+    
+    node* temp_node = new node(val);
+    pcrawl->next = temp_node;
     return;
 }
 
-
 void insert_at_beginning(node** head, int val){
-    
     if(*head == NULL){append(head, val); return;}
-
-    node* next_node = (*head)->next;
-    node* to_insert = new node(val);
-    (*head)->next = to_insert;
-    to_insert->next = next_node;
-    
+    node* temp_node = new node(val);
+    temp_node->next = *head;
+    *head = temp_node;
     return;
 }
 
 void insert_after(node** head, node* temp, int val){
-
-    if(temp == NULL){                                  // cant insert an NULL  
-        cout<<"can't insert at invalid location\n";
+    
+    if(*head == NULL){
+        cout<<"no elements inside\n";
         return;
     }
-
+    
+    if(temp == NULL){
+        cout<<"enter valid node pointer\n";
+        return;
+    }
+    
     node* pcrawl = *head;
-    node* prev = *head;
-    
-    while(pcrawl!=temp){
+    node* prev = pcrawl;
+    while(pcrawl != temp){
         prev = pcrawl;
-        pcrawl = pcrawl->next;
+        pcrawl=pcrawl->next;
     }
     
-    if(pcrawl==NULL){                                   // if an invalid location is passed as a parameter
-        cout<<"can't insert at invalid location\n";
+    if(pcrawl==NULL){
+        cout<<"no such node pointer found\n";
         return;
     }
     
-    prev = pcrawl;                                      // prev->next will refer to the new node
+    prev = pcrawl;
     pcrawl = pcrawl->next;
+    node* temp_node = new node(val);
+    temp_node->next = pcrawl->next;
+    prev->next = temp_node;
+    temp_node->next=pcrawl;
     
-    node* to_insert = new node(val);
-    prev->next = to_insert;
-    to_insert->next = pcrawl;
     return;
 }
 
 void delete_key(node** head, int val){
-
+    
     if(*head == NULL){
-        cout<<"no elements in the list \n";
+        cout<<"no elements inside\n";
         return;
     }
-
-    if((*head)->data == val){
-        node* to_delete = (*head);
-        node* next_to_head = (*head)->next;
-        (*head) = next_to_head;
-        if((*head) == NULL){
-            cout<<"No node left\n";
-        }
-        delete(to_delete);
-        return;
-    }
-
+    
     node* pcrawl = *head;
-    node* prev = *head;
-
-    while(pcrawl!=NULL){
-        if(pcrawl->data == val){break;}
+    node* prev = pcrawl;
+    while(pcrawl->data != val){
         prev = pcrawl;
-        pcrawl = pcrawl->next;
-    } 
-
-    if(pcrawl == NULL){
-        cout<<"no such element exists \n";
+        pcrawl=pcrawl->next;
+    }
+    
+    if(pcrawl==NULL){
+        cout<<"no such val(node) found\n";
         return;
     }
-
-    node* to_delete = pcrawl;
+    
+    if(prev == pcrawl){             // if the first element is the node with data 'val'.
+        *head = prev->next;
+        prev->next = NULL;
+        delete(prev);
+        return;
+    }
+    
     prev->next = pcrawl->next;
-    delete(to_delete);
+    pcrawl->next = NULL;
+    delete(pcrawl);
     return;
 }
 
-int nth_from_end(node** head, int n){
-
-    node* temp1 = *head;
-    node* temp2 = *head;
-
-    int k=1;
-    while(k<n && temp2!=NULL){temp2=temp2->next;k++;}
-    if(k<n){cout<<"not enough number of nodes\n";return INT_MAX;}
+void nth_from_end(node** head, int n){
     
-    if(temp2!=NULL){temp2=temp2->next;}
-
-    while(temp2!=NULL){
-        temp2=temp2->next;
-        temp1=temp1->next;
+    if(n<1){
+        cout<<"enter valid n\n";
+        return;
     }
-    return temp1->data;
+    
+    if(*head == NULL){
+        cout<<"no elements inside\n";
+        return;
+    }
+    
+    node* pcrawl = *head;
+    node* prev = pcrawl;
+    
+    int k=1;
+    while(k<n && pcrawl!=NULL){
+        pcrawl = pcrawl->next;
+        k++;
+    }
+    
+    if(k<n){
+        cout<<"not enough nodes inside\n";
+        return;
+    }
+    
+    while(pcrawl->next!=NULL){
+        pcrawl = pcrawl->next;
+        prev = prev->next;
+    }
+    cout<<prev->data<<"\n";
+    return;
 }
 
+
 void print_soln(node* head){
-    cout<<"linked list: ";
-    while(head!=NULL){
-        cout<<" -> "<<head->data;
-        head = head->next;
+    
+    node* pcrawl = head;
+    
+    while(pcrawl != NULL){
+        cout<<pcrawl->data<<"->";
+        pcrawl = pcrawl->next;
     }
-    cout<<"\n";
+    cout<<"null\n";
     return;
 }
 
 int main(){
-
-    node* head = NULL;
-    append(&head, 6);
-    insert_at_beginning(&head, 7);
-    insert_at_beginning(&head, 1);
-    append(&head, 4);
-    insert_after(&head,head->next, 8);
     
+    node* head = NULL;
     print_soln(head);
 
-    // delete_key(&head, 1);
-    // print_soln(head);
+    append(&head, 6);
+    print_soln(head);
     
-    cout<<nth_from_end(&head, 3)<<"\n";
+    insert_at_beginning(&head, 7);
+    print_soln(head);
     
+    insert_at_beginning(&head, 1);
+    print_soln(head);
+    
+    append(&head, 4);
+    print_soln(head);
+    
+    insert_after(&head,head->next->next, 8);
+    print_soln(head);
 
+    delete_key(&head, 1);
+    print_soln(head);
+    
+    nth_from_end(&head, 3);
+    
     return 0;
 }
