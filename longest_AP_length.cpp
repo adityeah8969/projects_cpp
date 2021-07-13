@@ -22,8 +22,7 @@ int longest_length_AP(int arr[], int n){
         int k=j+1;
 
         while(i>=0 && k<=n-1){
-
-            if(arr[i] + arr[k] < 2*arr[j]){k++;}    // not change in dp[i][j] as only k got changed
+            if(arr[i] + arr[k] < 2*arr[j]){k++;}    // no change in dp[i][j] as only k got changed
             else
             if(arr[i] + arr[k] > 2*arr[j]){
                 dp[i][j]=2;
@@ -36,13 +35,12 @@ int longest_length_AP(int arr[], int n){
             }
         }
 
-        while(i>=0){                        // in case k goes pass n-1, we need to set all the i's for 
+        while(i>=0){                        // in case k goes past n-1, we need to set all the i's for 
             dp[i][j] = 2;                   // that particular j.
             i--;
         }
 
     }
-
     return llap;
 }
 
