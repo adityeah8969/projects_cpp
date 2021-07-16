@@ -13,25 +13,43 @@ int t[M];
 // Linear time Manacher's algorithm to find longest palindromic substring.
 
 // Expand across an index till there is a character mismatch, let this be called current palindrome centered at index i.
-// There are 4 cases to handle
-// Case 1 : Right side palindrome is totally contained under current palindrome. 
-//          In this case do not consider this as center.
-//          Because anyways it cannot extend beyond the right boundary of current palindrome.
+// We cannot linearly go about expanding across every other element, cause that will make the algorithm have O(n*n) complexity.
+// Let's call the next candidate across which the expansion is going to happen 'C'. Let following be the, current state where 
+// the expansion has already happened across index 3 ('x'), and we hit a mismatch.
+//
+// str = a b a x a b a x a b b 
+// t[] = 1 3 1 7 
+// ind = 0 1 2 3 4 5 6 7 8 9 10
+//
+// Now the next candidate would be one among 'a', 'b', 'a' with indices 4, 5, 6 respectively.
+// 
+// t[4] = t[2] = 1  copying the mirror index about the current palindrome indexed at 3. If we pick C = t[4], this still does not
+// go past the right of the current plaindrome which we have found across index 3.
+//
+// t[5] = t[1] = 3 although we have copied t[5] to be 3, but if we pick C = t[5], this is actually hitting the right edge of the
+// current palindrome centered at index 3. so t[5] >= 3.
+// 
+// t[6] = [0] = 1, t[6] >= 1 by the same logic above.
+// But t[5] > t[6], so t[5] will be our next C.
+//
+// Following are the cases to consider while picking up next C in general,
+
+// Case 1 : Right side palindrome (across expected C) is totally contained under current palindrome. 
+//          In this case do not consider this as center. Because anyways it cannot extend beyond the right boundary of current palindrome.
+
 // Case 2 : Current palindrome is proper suffix of input. Terminate the loop in this case. 
-//          No better palindrom will be found on right.
-//          all the palindromes on the right would definitely be of smaller lengths.
-// Case 3 : Right side palindrome is proper suffix and its corresponding left side palindrome is proper prefix of 
-//          current palindrome. Make largest such point as next center.
-//          There is a possibility that this palindrome may get extended.
-// Case 4 : Right side palindrome is proper suffix but its left corresponding palindrome is be beyond current palindrome. 
+//          No better palindrom will be found on right. All the palindromes on the right would definitely be of smaller lengths.
+
+// Case 3 : Right side palindrome (across expected C) is proper suffix and its corresponding left side palindrome is proper prefix of 
+//          current palindrome. Make largest such point as next center. There is a possibility that this palindrome may get extended.
+
+// Case 4 : Right side palindrome ((across expected C) is proper suffix but its left corresponding palindrome is be beyond current palindrome. 
 //          Do not consider this as center because it will not extend at all.
 //          EXtension will not happen because the current palindrome itself would have got extended had there been
 //          any other character match.
 
-
 // To handle even size palindromes replace input string with one containing # between every input character 
 // and in start and end. 
-
 
 // i/p: abcd ---> o/p: #a#b#c#d#
 string modify(string str){                  //*
@@ -66,7 +84,7 @@ void manachers_algo(string str){
         // breaking the loop if right end of current palindrome reaches the end of string.
         if(end == len-1){break;}    //*
 
-        // making sure that we always pick a mormal string character(not '#') for initializing new_center.
+        // making sure that we always pick a normal string character(not '#') for initializing new_center.
         // note that 'new_center' may get changed in the later section of code
         int new_center = end + (i%2 ==0 ? 1 : 0);      //*
 
@@ -92,7 +110,7 @@ void manachers_algo(string str){
         end = i + t[i]/2;
     }
 
-    int maxi = -1;
+    int maxi = 1;
     for(int i=0;i<len;i++){maxi = max(maxi,t[i]);}
     cout<<"The maximum length palindromic substring is "<<maxi/2<<"\n";         //* maxi/2
 
