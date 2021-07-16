@@ -24,7 +24,7 @@ int palindromic_subsequences(string str){
 
     int j;
     for(int l=2;l<n;l++){
-        for(int i=0i<n;i++){
+        for(int i=0;i<n;i++){
             j=i+l;
             dp[i][j] = dp[i][j-1] + dp[i+1][j] - dp[i+1][j-1];
             if(str[i]==str[j]){
