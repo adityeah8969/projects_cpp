@@ -15,7 +15,7 @@ int last_profit_index(job arr[], int index){
 
     int mid;
 
-    while(low<=high){
+    while(low<=high){                               // ** dont make it low < high, otherwise -1 present at the end might get returned.
 
         mid = low + (high-low)/2;
         
