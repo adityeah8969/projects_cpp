@@ -8,7 +8,7 @@ class job{
         int profit;  
 };
 
-int last_job_profit(job arr[], int index){
+int last_profit_index(job arr[], int index){
 
     int low=0;
     int high = index-1;
@@ -23,10 +23,7 @@ int last_job_profit(job arr[], int index){
             if(arr[mid+1].end<=arr[index].start){
                 low = mid+1;
             }
-            else{
-                return arr[mid].profit;
-            }
-
+            return mid;
         }
         else{
             high = mid-1;
@@ -56,8 +53,8 @@ int maximum_profit_weighted_job_scheduling(job arr[], int n){
         excl = 0;
 
         incl+=arr[i].profit;
-        int temp = last_job_profit(arr, i);
-        if(temp!=-1){incl+=temp;}
+        int ind = last_profit_index(arr, i);
+        if(ind!=-1){incl+=dp[ind];}
         
         excl = dp[i-1];
         
