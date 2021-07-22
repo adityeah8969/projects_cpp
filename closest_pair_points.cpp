@@ -46,8 +46,8 @@ double closest_pair_of_points_on_strip(vector<point> strip, double d){
     double mini = d;
 
     for(int i=0;i<len;i++){
-        for(int j=i+1;j<len && abs(p[i].y-p[j].y)<d;j++){
-            mini = min(d, dist(p[i], p[j]));
+        for(int j=i+1;j<len && abs(p[i].y-p[j].y)<d;j++){                       // this internal loop will not run more than 6 times
+            mini = min(d, dist(p[i], p[j]));                                    // http://people.csail.mit.edu/indyk/6.838-old/handouts/lec17.pdf
         }
     }
     return mini;
