@@ -23,14 +23,14 @@ bool cmp(point a, point b){
 }
 
 
-bool cw(point a, point b, point c){
+bool cw(point a, point b, point c){         // for upper half
     point ab(b.x-a.x,b.y-a.y);
     point bc(c.x-b.x,c.y-b.y);
     int cross_product = ab.x*bc.y - ab.y*bc.x;
     return cross_product<0; 
 }
 
-bool ccw(point a, point b, point c){
+bool ccw(point a, point b, point c){        // for lower half
     point ab(b.x-a.x,b.y-a.y);
     point bc(c.x-b.x,c.y-b.y);
     int cross_product = ab.x*bc.y - ab.y*bc.x;
