@@ -29,7 +29,10 @@ int vertex_cover(node* root){
     // have more connections than them.
     if(root == NULL || (root->left == NULL && root->right==NULL)){return 0;}
     
-    if(root->vc!=0){return root->vc;}
+    if(root->vc!=0){return root->vc;}                                           // if this is removed time complexity would be O(2^n). (Brute force)
+                                                                                // current time complexity is O(n*n), as we would be traversing the 
+                                                                                // entire subtree below a node, for every node.(no vertex will be visited 
+                                                                                // more than once)
 
     int incl = 1; // including current node
     incl+=vertex_cover(root->left)+vertex_cover(root->right);
