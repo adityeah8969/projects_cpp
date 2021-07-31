@@ -1,5 +1,4 @@
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int n=4;
@@ -15,8 +14,10 @@ int dist[10][10] = {
 
 int visited_all=(1<<n)-1;
 
+// Hamiltonian cycle: A graph cycle (i.e., closed loop) through a graph that visits each node exactly once.
+
 // tsp(mask, pos) or dp[mask][pos] stores the minimum weight hamiltonian cycle to be achieved from the current state
-// of already covered nodes (mask) and currently visited node(pos).
+// of already covered nodes (mask) which includes current node(pos).
 int tsp(int mask,int pos){
 
     if(mask==visited_all){return dist[pos][0];}
@@ -27,7 +28,7 @@ int tsp(int mask,int pos){
 
     for(int city=0;city<n;city++){
             if((mask & (1<<city))==0){
-                int newAns=dist[pos][city]+tsp( mask|(1<<city) ,city);
+                int newAns=dist[pos][city]+tsp(mask|(1<<city) ,city);
                 ans=min(ans,newAns);
             }
     }
