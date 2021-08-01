@@ -1,68 +1,99 @@
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-#define ll long long int
-#define M 1000005
+class Node{
+    public:
+        int data;
+        Node* left;
+        Node* right;
+        
+        Node(int data){
+            this->data = data;
+            this->left = NULL;
+            this->right = NULL;
+        }
+};
 
-int tree[M];
+Node* left_most(Node* root){
+    while(root && root->left){
+        root = root->left;
+    }
+    return root;
+}
 
-void init(){
-    for(int i=0;i<M;i++){tree[i] = -1;}
+Node* right_most(Node* root){
+    while(root && root->right){
+        root = root->right;
+    }
+    return root;
+}
+
+Node* findInorderRecursive(Node* root, Node* x)             // first find the node, then trace back and check if there was a parent node with a left child
+{                                                           
+    
+    if (!root){return NULL;}
+    if (root == x){return root;}                
+    
+    Node* temp_left =  findInorderRecursive(root->left, x);
+    
+    if(temp_left){
+        cout<<root->data;
+        return NULL;
+    }
+    
+    Node* temp_right =  findInorderRecursive(root->right, x);
+    return !(temp_right)? NULL: root;
+}
+
+void findInorder(Node* root, Node* temp){
+    
+    if(!root || !temp){
+        cout<<"invalid i/p";
+        return;
+    }
+    
+    cout<<"inorder successor of "<<temp->data<<" : ";
+    
+    if(temp->right){
+        Node* ans = left_most(temp->right);
+        cout<<ans->data<<"\n";
+        return;
+    }
+    
+    if(temp == right_most(root)){
+        cout<<"no inorder successor\n";
+        return;
+    }
+    
+    findInorderRecursive(root, temp);
+    cout<<"\n";
     return;
 }
 
-bool right_most(int i){
-    int r = 0;                      // * start from root
-    while(tree[r]!=-1){r=2*r+2;}
-    r = (r-1)/2;
-    return r==i;
-}
-
-int nearest_parent_with_left_node(int i, int p){
-    if(i == 2*p+1){return p;}
-    return nearest_parent_with_left_node(p, (p-1)/2);
-}   
-
-int left_most(int r){
-    while(tree[r]!=-1){r = 2*r+1;}
-    r = (r-1)/2;
-    return r;
-}
-
-int inorder_successor(int i){
-    int ans = -1;
-    if(tree[2*i+2] == -1){
-        if(right_most(i)){
-            cout<<"no inorder successor \n";
-            return ans;
-        }
-        ans = nearest_parent_with_left_node(i, (i-1)/2);
-    }
-    else{
-        ans = left_most(2*i+2);
-    }
-    return ans;
-}
-
-int main(){
-
-    init();
-
-    tree[0] = 1;
-    tree[1] = 2;
-    tree[2] = 3;
-    tree[3] = 4;
-    tree[4] = 5;
-    tree[5] = 6;
-
-    // pass the index as parameter
-    cout<<inorder_successor(2)<<"\n";
-    cout<<inorder_successor(4)<<"\n";
-    cout<<inorder_successor(5)<<"\n";
+int main() {
+    
+    // Let's construct the binary tree 
+    //       1
+    //    /    \
+    //   2      3
+    //  / \    / \
+    // 4   5  6   7
+    
+    Node* root          = new Node(1);
+    root->left          = new Node(2);
+    root->right         = new Node(3);
+    root->left->left    = new Node(4);
+    root->left->right   = new Node(5);
+    root->right->left   = new Node(6);
+    root->right->right  = new Node(7);
+    
+    findInorder(root, root);        
+    findInorder(root, root->left);  
+    findInorder(root, root->right);  
+    findInorder(root, root->left->left);
+    findInorder(root, root->left->right);
+    findInorder(root, root->right->left);
+    findInorder(root, root->right->right);
 
     return 0;
 }
-
-//         0
-//     1       2
-//   3   4    5 
