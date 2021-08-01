@@ -45,7 +45,7 @@ Node* findInorderRecursive(Node* root, Node* x)             // first find the no
     return !(temp_right)? NULL: root;
 }
 
-void findInorder(Node* root, Node* temp){
+void findInorderSuccessor(Node* root, Node* temp){
     
     if(!root || !temp){
         cout<<"invalid i/p";
@@ -87,13 +87,13 @@ int main() {
     root->right->left   = new Node(6);
     root->right->right  = new Node(7);
     
-    findInorder(root, root);        
-    findInorder(root, root->left);  
-    findInorder(root, root->right);  
-    findInorder(root, root->left->left);
-    findInorder(root, root->left->right);
-    findInorder(root, root->right->left);
-    findInorder(root, root->right->right);
+    findInorderSuccessor(root, root);        
+    findInorderSuccessor(root, root->left);  
+    findInorderSuccessor(root, root->right);  
+    findInorderSuccessor(root, root->left->left);
+    findInorderSuccessor(root, root->left->right);
+    findInorderSuccessor(root, root->right->left);
+    findInorderSuccessor(root, root->right->right);
 
     return 0;
 }
