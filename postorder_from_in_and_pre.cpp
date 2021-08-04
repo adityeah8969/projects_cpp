@@ -1,52 +1,43 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define ll long long int
-#define M 1000005
 
-static int k;
-int post[M];
-
-void construct_postorder(int in[], int pre[], int low, int high, int root_index){
+void printPostOrder(int in[], int pre[], unordered_map<int, int> index_map, int left, int right, int *pre_index){
     
-    int root = pre[root_index];
-    post[k] = root;                                                                     // post[] filled backwards
-
-    int mid;
-    for(int i=low;i<=high;i++){
-        if(in[i] == root){
-            mid = i;
-            break;
-        }
-    }
-
-    int left_nodes = (mid - low);
-
-    if(high>=mid+1){
-        k--;
-        construct_postorder(in, pre, mid+1, high, root_index+left_nodes+1);             //* right node first
-    }
-    if(low<=mid-1){
-        k--;
-        construct_postorder(in, pre, low, mid-1, root_index+1);                         //* left node later
-    }
+    if(left>right){return;}
+    
+    int curr = pre[*pre_index];
+    *pre_index = *pre_index + 1;
+    int in_index = index_map[curr];
+    
+    printPostOrder(in, pre, index_map, left, in_index-1, pre_index);
+    printPostOrder(in, pre, index_map, in_index+1, right, pre_index);
+    
+    cout<<curr<<" ";
+    
     return;
 }
 
-void show_postorder(int n){
-    for(int i=0;i<5*n;i++){cout<<post[i]<<" ";}
+
+void postOrderUtil(int in[], int pre[], int n){
+    
+    unordered_map<int, int> index_map;
+    for(int i=0;i<n;i++){
+        index_map[in[i]] = i;
+    }
+    
+    int pre_index = 0;
+    printPostOrder(in, pre, index_map, 0, n-1, &pre_index);
+    
     return;
 }
 
 int main(){
-
-    int in[] = {4, 2, 5, 1, 3, 6};
-    int pre[] = {1, 2, 4, 5, 3, 6};
-
-    int n = sizeof(in)/sizeof(in[0]);
-    k = n-1;                                                                               // k initialized to n-1
-    construct_postorder(in, pre, 0, n-1, 0);                                               // to enable array filling 
-    show_postorder(n);                                                                     // backwards
-
+    
+    int in[] = { 4, 2, 5, 1, 3, 6 };
+    int pre[] = { 1, 2, 4, 5, 3, 6 };
+    int n = sizeof(pre)/sizeof(pre[0]);
+     
+    postOrderUtil(in, pre, n);
     return 0;
 }
