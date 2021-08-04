@@ -28,7 +28,7 @@ node* construct_tree_util(int in[], int post[], int low, int high, int *post_ind
     
     int ind = index_map[curr];
     
-    root->right = construct_tree_util(in, post, ind+1, high, post_index, index_map);
+    root->right = construct_tree_util(in, post, ind+1, high, post_index, index_map);            // right subtree first
     root->left = construct_tree_util(in, post, low, ind-1, post_index, index_map);
     
     return root;
