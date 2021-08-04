@@ -26,7 +26,7 @@ node* construct_tree_util(int pre[], int post[], int low, int high, int *pre_ind
 
     if(low == high){return root;}
     
-    int post_index, next_data;
+    int post_index, next_data;                  // ** slightly different from other cases like tree from in + pre / in + post
     next_data = pre[*pre_index];
     post_index = post_map[next_data];
     
