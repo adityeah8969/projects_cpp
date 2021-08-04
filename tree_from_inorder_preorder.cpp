@@ -1,64 +1,73 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define ll long long int
-#define M 1000005
-
-char arr[M];
-
-static int k =0;
-
-void construct_tree(string in, string pre, int l, int r,int root){
-
-    // if(r==l){
-    //     arr[root] = in[l];
-    //     return;
-    // }
-
-    arr[root] = pre[k];
-    
-    int mid=-1;
-    for(int i=l;i<=r;i++){
-        if(in[i]==pre[k]){
-            mid = i;
-            break;
-        }
+class node{
+  
+  public:
+    int data;
+    node* left;
+    node* right;
+    node(int data){
+        this->data = data;
+        this->left = NULL;
+        this->right = NULL;
     }
     
-    if(mid-1>=l){
-        ++k;
-        construct_tree(in, pre, l, mid-1, 2*root+1);
-    }
-    if(r>= mid+1){
-        ++k;
-        construct_tree(in, pre, mid+1, r, 2*root+2); 
-    }
+};
+
+
+node* construct_tree_util(int in[], int pre[], int low, int high, int *pre_index, unordered_map<int, int> index_map){
     
+    if(low>high){return NULL;}
+    
+    int curr = pre[*pre_index];
+    node* root = new node(curr);
+    *pre_index = *pre_index + 1;
+    
+    if(low == high){return root;}
+    
+    int ind = index_map[curr];
+    
+    root->left = construct_tree_util(in, pre, low, ind-1, pre_index, index_map);
+    root->right = construct_tree_util(in, pre, ind+1, high, pre_index, index_map);
+
+    return root;
+}
+
+
+node* construct_tree(int in[], int pre[], int n){
+    
+    unordered_map<int, int> index_map;
+    for(int i=0;i<n;i++){ index_map[in[i]] = i; }
+    
+    int pre_index = 0;
+    return construct_tree_util(in, pre, 0, n-1, &pre_index, index_map);
+}
+
+
+void print_inorder(node* root){
+    if(!root){return;}
+    if(root->left){print_inorder(root->left);}
+    cout<<root->data<<" ";
+    if(root->right){print_inorder(root->right);}
     return;
 }
 
-void show_tree(){
 
-    for(int i=0;i<=10;i++){
-        cout<<arr[i]<<" ";
-    }
-
-    return;
+int main ()
+{
+    int in[] = { 4, 2, 5, 1, 6, 3 };
+    int pre[] = { 1, 2, 4, 5, 3, 6 };
+    int len = sizeof(in) / sizeof(in[0]);
+    node* root = construct_tree(in, pre, len);
+    cout << "Inorder traversal of the constructed tree is \n";
+    print_inorder(root);
 }
 
-int main(){
-
-    string in = "DBEAFC";
-    string pre = "ABDECF";  
-
-    int n = in.length();
-    construct_tree(in, pre, 0, n-1, 0);
-
-    show_tree();
-
-    return 0;
-}
-
-// D B E A F C  in
-// 0 1 2 3 4 5
-// A B D E C F  pre
+//         1
+//       /   \
+//      /     \
+//     2       3
+//   /  \      /
+//  /    \    /
+// 4      5  6
