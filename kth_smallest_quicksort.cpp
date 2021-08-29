@@ -24,11 +24,11 @@ int random_partition(int arr[], int low, int high){
 }
 
 int kth_smallest(int arr[], int low, int high, int k){
-    if(k>=0 && k<(high-low+1)){                                          
+    if(k>=low && k<=high){                                          
         int pos = random_partition(arr, low, high);
-        if(pos == low + k){return arr[pos];}                        //*
-        if(pos > low + k){return kth_smallest(arr, low, pos-1, k);}
-        return kth_smallest(arr, pos+1, high, (low+k)-(pos+1));     //*
+        if(pos == k){return arr[pos];}                        
+        if(pos > k){return kth_smallest(arr, low, pos-1, k);}
+        return kth_smallest(arr, pos+1, high, k);     
     }
     cout<<k<<" not in range of"<<low<<" and "<<high<<"\n";
     return INT_MAX;
